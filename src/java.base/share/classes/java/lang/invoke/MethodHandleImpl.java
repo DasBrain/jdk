@@ -49,6 +49,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
@@ -1164,7 +1165,7 @@ abstract class MethodHandleImpl {
                     name = name.replace('/', '_');
                 }
                 Class<?> invokerClass = new Lookup(targetClass)
-                        .makeHiddenClassDefiner(name, INJECTED_INVOKER_TEMPLATE)
+                        .makeHiddenClassDefiner(name, INJECTED_INVOKER_TEMPLATE, Set.of(Lookup.ClassOption.NESTMATE), false)
                         .defineClass(true);
                 assert checkInjectedInvoker(targetClass, invokerClass);
                 return IMPL_LOOKUP.findStatic(invokerClass, "invoke_V", INVOKER_MT);

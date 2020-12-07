@@ -2379,6 +2379,20 @@ public class MethodHandles {
             // skip name and access flags validation
             return makeHiddenClassDefiner(ClassFile.newInstanceNoCheck(name, bytes), Set.of(), false);
         }
+         /**
+         * Returns a ClassDefiner that creates a {@code Class} object of a hidden class
+         * from the given bytes.  No package name check on the given name.
+         *
+         * @param name    fully-qualified name that specifies the prefix of the hidden class
+         * @param bytes   class bytes
+         * @param options class options
+         * @param accessVmAnnotations true to give the hidden class access to VM annotations
+         * @return ClassDefiner that defines a hidden class of the given bytes.
+         */
+        ClassDefiner makeHiddenClassDefiner(String name, byte[] bytes, Set<ClassOption> options, boolean accessVmAnnotations) {
+            // skip name and access flags validation
+            return makeHiddenClassDefiner(ClassFile.newInstanceNoCheck(name, bytes), options, accessVmAnnotations);
+        }
 
         /**
          * Returns a ClassDefiner that creates a {@code Class} object of a hidden class
