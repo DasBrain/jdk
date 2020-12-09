@@ -2386,12 +2386,11 @@ public class MethodHandles {
          * @param name    fully-qualified name that specifies the prefix of the hidden class
          * @param bytes   class bytes
          * @param options class options
-         * @param accessVmAnnotations true to give the hidden class access to VM annotations
          * @return ClassDefiner that defines a hidden class of the given bytes.
          */
-        ClassDefiner makeHiddenClassDefiner(String name, byte[] bytes, Set<ClassOption> options, boolean accessVmAnnotations) {
+        ClassDefiner makeHiddenClassDefiner(String name, byte[] bytes, Set<ClassOption> options) {
             // skip name and access flags validation
-            return makeHiddenClassDefiner(ClassFile.newInstanceNoCheck(name, bytes), options, accessVmAnnotations);
+            return makeHiddenClassDefiner(ClassFile.newInstanceNoCheck(name, bytes), options, false);
         }
 
         /**

@@ -1165,7 +1165,7 @@ abstract class MethodHandleImpl {
                     name = name.replace('/', '_');
                 }
                 Class<?> invokerClass = new Lookup(targetClass)
-                        .makeHiddenClassDefiner(name, INJECTED_INVOKER_TEMPLATE, Set.of(Lookup.ClassOption.NESTMATE), false)
+                        .makeHiddenClassDefiner(name, INJECTED_INVOKER_TEMPLATE, Set.of(Lookup.ClassOption.NESTMATE))
                         .defineClass(true);
                 assert checkInjectedInvoker(targetClass, invokerClass);
                 return IMPL_LOOKUP.findStatic(invokerClass, "invoke_V", INVOKER_MT);

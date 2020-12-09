@@ -354,6 +354,27 @@ public class CallerSensitiveAccess {
         MethodHandle mh = MethodHandles.lookup().unreflect(m);
         mh.invoke(inaccessibleField(), true);  // should throw ClassCastException
     }
+    
+    // -- Test injected invoker is nestmate --
+    
+    private static int field = 42;
+    
+    /**
+     * Test Field.setInt through a MethodHandle on a private field in the lookup class.
+     */
+    @Test
+    public void testInjectedInvokerIsNestmate() {
+        try {
+            Lookup l = MethodHandles.lookup();
+            Field f = CallerSensitiveAccess.class.getDeclaredField("field");
+            MethodHandle mh = l.findVirtual(Field.class, "getInt", MethodType.methodType(
+            int.class, Object.class));
+            int actual = (int) mh.invokeExact(f, (Object) null);
+            assertEquals(field, actual);
+        } catch (Throwable t) {
+            fail("Unexpected exception", t);
+        }
+    }
 
 
     // -- supporting methods --
