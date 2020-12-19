@@ -2005,6 +2005,9 @@ public final class System {
 
         lineSeparator = props.getProperty("line.separator");
 
+        // register shared secrets
+        setJavaLangAccess();
+
         FileInputStream fdIn = new FileInputStream(FileDescriptor.in);
         FileOutputStream fdOut = new FileOutputStream(FileDescriptor.out);
         FileOutputStream fdErr = new FileOutputStream(FileDescriptor.err);
@@ -2026,8 +2029,6 @@ public final class System {
         Thread current = Thread.currentThread();
         current.getThreadGroup().add(current);
 
-        // register shared secrets
-        setJavaLangAccess();
 
         // Subsystems that are invoked during initialization can invoke
         // VM.isBooted() in order to avoid doing things that should

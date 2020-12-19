@@ -196,6 +196,10 @@ public class ReflectionFactory {
             }
         }
 
+        return new MHMethodAccessor(method.getDeclaringClass(),
+                SharedSecrets.getJavaLangInvokeAccess().methodHandleForMethod(method),
+                method.getModifiers());
+/*
         // use the root Method that will not cache caller class
         Method root = langReflectAccess.getRoot(method);
         if (root != null) {
@@ -218,7 +222,7 @@ public class ReflectionFactory {
                 new DelegatingMethodAccessorImpl(acc);
             acc.setParent(res);
             return res;
-        }
+        } */
     }
 
     public ConstructorAccessor newConstructorAccessor(Constructor<?> c) {
@@ -239,6 +243,9 @@ public class ReflectionFactory {
             c = root;
         }
 
+        return new MHConstructorAccessor(SharedSecrets.getJavaLangInvokeAccess()
+                .methodHandleForConstructor(c));
+/*
         // Bootstrapping issue: since we use Class.newInstance() in
         // the ConstructorAccessor generation process, we have to
         // break the cycle here.
@@ -261,7 +268,7 @@ public class ReflectionFactory {
                 new DelegatingConstructorAccessorImpl(acc);
             acc.setParent(res);
             return res;
-        }
+        } */
     }
 
     //--------------------------------------------------------------------------

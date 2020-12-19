@@ -56,7 +56,7 @@ class GenerateJLIClassesHelper {
 
     static void traceLambdaForm(String name, MethodType type, Class<?> holder, MemberName resolvedMember) {
         if (TRACE_RESOLVE) {
-            System.out.println(LF_RESOLVE + " " + holder.getName() + " " + name + " " +
+            PrintHelper.println(LF_RESOLVE + " " + holder.getName() + " " + name + " " +
                     shortenSignature(basicTypeSignature(type)) +
                     (resolvedMember != null ? " (success)" : " (fail)"));
         }
@@ -67,7 +67,7 @@ class GenerateJLIClassesHelper {
 
     static void traceSpeciesType(String cn, Class<?> salvage) {
         if (TRACE_RESOLVE) {
-            System.out.println(SPECIES_RESOLVE + " " + cn + (salvage != null ? " (salvaged)" : " (generated)"));
+            PrintHelper.println(SPECIES_RESOLVE + " " + cn + (salvage != null ? " (salvaged)" : " (generated)"));
         }
         if (CDS.isDumpingClassList()) {
             CDS.traceSpeciesType(SPECIES_RESOLVE, cn);
