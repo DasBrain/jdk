@@ -59,8 +59,10 @@ class MHMethodAccessor extends MethodAccessorImpl {
         }
         try {
             return target.invokeExact(obj, args);
+        } catch (RuntimeException | Error | InvocationTargetException e) {
+            throw e;
         } catch (Throwable t) {
-            throw new InvocationTargetException(t);
+            throw new InternalError(t);
         }
     }
 

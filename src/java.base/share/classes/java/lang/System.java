@@ -2014,6 +2014,8 @@ public final class System {
         setIn0(new BufferedInputStream(fdIn));
         setOut0(newPrintStream(fdOut, props.getProperty("sun.stdout.encoding")));
         setErr0(newPrintStream(fdErr, props.getProperty("sun.stderr.encoding")));
+        
+        SharedSecrets.getJavaLangInvokeAccess().printStreamsAreSetup();
 
         // Setup Java signal handlers for HUP, TERM, and INT (where available).
         Terminator.setup();

@@ -43,8 +43,10 @@ public class MHConstructorAccessor extends ConstructorAccessorImpl {
             IllegalArgumentException, InvocationTargetException {
         try {
             return target.invokeExact(args);
+        } catch (RuntimeException | Error | InvocationTargetException e) {
+            throw e;
         } catch (Throwable t) {
-            throw new InvocationTargetException(t);
+            throw new InternalError(t);
         }
     }
 
