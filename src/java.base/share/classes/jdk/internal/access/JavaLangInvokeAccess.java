@@ -132,4 +132,28 @@ public interface JavaLangInvokeAccess {
      * @return the native method handle
      */
     MethodHandle nativeMethodHandle(NativeEntryPoint nep, MethodHandle fallback);
+
+    /**
+     * Creates a direct method handle - with no bound caller
+     * @param method A {@link java.lang.reflect.Method}.
+     */
+    MethodHandle methodHandleForMethod(Object method);
+
+    /**
+     * Creates a direct method handle for a constructor
+     * @param constructor A {@link java.lang.reflect.Constructor}.
+     */
+    MethodHandle methodHandleForConstructor(Object constructor);
+
+    /**
+     * Creates a MethodHandle for use as constructor for serialization
+     * @param constructor The {@link java.lang.reflect.Constructor} to call.
+     * @param type The actual type to construct.
+     */
+    MethodHandle methodHandleForConstructorForSerialization(Object constructor, Class<?> type);
+    
+    /**
+     * Notifies j.l.i that System.out is setup
+     */
+    void printStreamsAreSetup();
 }

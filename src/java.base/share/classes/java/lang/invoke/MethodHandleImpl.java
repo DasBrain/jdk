@@ -1800,6 +1800,27 @@ abstract class MethodHandleImpl {
             public VarHandle insertCoordinates(VarHandle target, int pos, Object... values) {
                 return VarHandles.insertCoordinates(target, pos, values);
             }
+
+            @Override
+            public MethodHandle methodHandleForMethod(Object method) {
+                return ReflectionSupport.forMethod(method);
+            }
+
+            @Override
+            public MethodHandle methodHandleForConstructor(Object constructor) {
+                return ReflectionSupport.forConstructor(constructor);
+            }
+
+            @Override
+            public MethodHandle methodHandleForConstructorForSerialization(
+                    Object constructor, Class<?> type) {
+                return ReflectionSupport.constructorForSerialization(constructor, type);
+            }
+
+            @Override
+            public void printStreamsAreSetup() {
+                PrintHelper.dump();
+            }
         });
     }
 
