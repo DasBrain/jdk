@@ -2281,6 +2281,10 @@ public final class System {
                 t.setCause(cause);
             }
 
+            public ProtectionDomain rawProtectionDomain(Class<?> c) {
+                return c.rawProtectionDomain();
+            }
+
             public ProtectionDomain protectionDomain(Class<?> c) {
                 return c.protectionDomain();
             }

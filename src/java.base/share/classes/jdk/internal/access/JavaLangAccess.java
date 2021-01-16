@@ -340,6 +340,12 @@ public interface JavaLangAccess {
     ProtectionDomain protectionDomain(Class<?> c);
 
     /**
+     * Get protection domain of the given Class.
+     * May return {@code null}
+     */
+    ProtectionDomain rawProtectionDomain(Class<?> c);
+
+    /**
      * Get a method handle of string concat helper method
      */
     MethodHandle stringConcatHelper(String name, MethodType methodType);

@@ -2461,7 +2461,7 @@ public class MethodHandles {
         private ProtectionDomain lookupClassProtectionDomain() {
             ProtectionDomain pd = cachedProtectionDomain;
             if (pd == null) {
-                cachedProtectionDomain = pd = SharedSecrets.getJavaLangAccess().protectionDomain(lookupClass);
+                cachedProtectionDomain = pd = SharedSecrets.getJavaLangAccess().rawProtectionDomain(lookupClass);
             }
             return pd;
         }
@@ -4194,6 +4194,41 @@ return mh1;
         }
 
         static ConcurrentHashMap<MemberName, DirectMethodHandle> LOOKASIDE_TABLE = new ConcurrentHashMap<>();
+    }
+
+
+    /**
+     * A class definer conveys the ability to define classes in a package.
+     */
+    public static final class ClassDefiner {
+        private final ClassLoader loader;
+        private final String packageName;
+        private final ProtectionDomain pd;
+
+        ClassDefiner(ClassLoader loader, String packageName, ProtectionDomain pd) {
+            this.loader = loader;
+            this.packageName = packageName;
+            this.pd = pd;
+        }
+
+        public ClassLoader classLoader() {
+            return loader;
+        }
+
+        public String packageName() {
+            return packageName;
+        }
+
+        /* non-public */ ProtectionDomain protectionDomain() {
+            return pd;
+        }
+
+        public Lookup defineClass(byte[] bytes) {
+            Lookup.ClassFile cf = Lookup.ClassFile.newInstance(bytes, packageName);
+            Class<?> defined = SharedSecrets.getJavaLangAccess()
+                    .defineClass(loader, cf.name, cf.bytes, pd, "__java.lang.invoke.MethodHandles.ClassDefiner__");
+            return Lookup.IMPL_LOOKUP.in(defined);
+        }
     }
 
     /**

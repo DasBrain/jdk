@@ -2951,6 +2951,11 @@ public final class Class<T> implements java.io.Serializable,
         return pd;
     }
 
+    // package-private
+    java.security.ProtectionDomain rawProtectionDomain() {
+        return getProtectionDomain0();
+    }
+
     /**
      * Returns the ProtectionDomain of this class.
      */
