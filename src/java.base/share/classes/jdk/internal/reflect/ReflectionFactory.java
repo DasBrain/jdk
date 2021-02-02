@@ -225,12 +225,7 @@ public class ReflectionFactory {
             assert VM.isModuleSystemInited();
             return MethodHandleAccessorFactory.newMethodAccessor(method);
         } else {
-            return new MethodAccessorGenerator().generateMethod(method.getDeclaringClass(),
-                                                                method.getName(),
-                                                                method.getParameterTypes(),
-                                                                method.getReturnType(),
-                                                                method.getExceptionTypes(),
-                                                                method.getModifiers());
+            return new NativeMethodAccessorImpl(method);
         }
     }
 
@@ -280,10 +275,7 @@ public class ReflectionFactory {
             assert VM.isModuleSystemInited();
             return MethodHandleAccessorFactory.newConstructorAccessor(c);
         } else {
-            return new MethodAccessorGenerator().generateConstructor(c.getDeclaringClass(),
-                                                                     c.getParameterTypes(),
-                                                                     c.getExceptionTypes(),
-                                                                     c.getModifiers());
+            return new NativeConstructorAccessorImpl(c);
         }
     }
 
@@ -483,29 +475,8 @@ public class ReflectionFactory {
 
     private final Constructor<?> generateConstructor(Class<?> cl,
                                                      Constructor<?> constructorToCall) {
-
-
-        ConstructorAccessor acc = new MethodAccessorGenerator().
-            generateSerializationConstructor(cl,
-                                             constructorToCall.getParameterTypes(),
-                                             constructorToCall.getExceptionTypes(),
-                                             constructorToCall.getModifiers(),
-                                             constructorToCall.getDeclaringClass());
-        Constructor<?> c = newConstructor(constructorToCall.getDeclaringClass(),
-                                          constructorToCall.getParameterTypes(),
-                                          constructorToCall.getExceptionTypes(),
-                                          constructorToCall.getModifiers(),
-                                          langReflectAccess.
-                                          getConstructorSlot(constructorToCall),
-                                          langReflectAccess.
-                                          getConstructorSignature(constructorToCall),
-                                          langReflectAccess.
-                                          getConstructorAnnotations(constructorToCall),
-                                          langReflectAccess.
-                                          getConstructorParameterAnnotations(constructorToCall));
-        setConstructorAccessor(c, acc);
-        c.setAccessible(true);
-        return c;
+        // TODO: Implement
+        throw new UnsupportedOperationException();
     }
 
     public final MethodHandle readObjectForSerialization(Class<?> cl) {
