@@ -4205,7 +4205,7 @@ return mh1;
     }
 
     static MethodHandle unreflectConstructorForSerialization(Constructor<?> c, Class<?> instatiatedType) throws IllegalAccessException {
-        if (c.getDeclaringClass().isAssignableFrom(instatiatedType)) {
+        if (instatiatedType.isAssignableFrom(c.getDeclaringClass())) {
             throw newIllegalArgumentException("Constructor is not for a superclass", c, instatiatedType);
         }
         MemberName mn = new MemberName(c);
