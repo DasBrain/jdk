@@ -26,6 +26,7 @@
 package java.lang.reflect;
 
 import jdk.internal.access.SharedSecrets;
+import jdk.internal.misc.Unsafe;
 import jdk.internal.reflect.CallerSensitive;
 import jdk.internal.reflect.MethodAccessor;
 import jdk.internal.reflect.Reflection;
@@ -44,6 +45,7 @@ import java.lang.annotation.Annotation;
 import java.lang.annotation.AnnotationFormatError;
 import java.nio.ByteBuffer;
 import java.util.StringJoiner;
+import java.util.concurrent.atomic.AtomicReferenceFieldUpdater;
 
 /**
  * A {@code Method} provides information about, and access to, a single method
@@ -85,6 +87,7 @@ public final class Method extends Executable {
     private byte[]              annotations;
     private byte[]              parameterAnnotations;
     private byte[]              annotationDefault;
+    @Stable
     private volatile MethodAccessor methodAccessor;
     // For sharing of MethodAccessors. This branching structure is
     // currently only two levels deep (i.e., one root Method and

@@ -29,6 +29,7 @@ import java.lang.invoke.MethodHandle;
 import java.lang.reflect.InvocationTargetException;
 
 import jdk.internal.misc.Unsafe;
+import jdk.internal.vm.annotation.ForceInline;
 import jdk.internal.vm.annotation.Stable;
 
 class MHConstructorAccessor extends ConstructorAccessorImpl {
@@ -46,6 +47,7 @@ class MHConstructorAccessor extends ConstructorAccessorImpl {
     }
 
     @Override
+    @ForceInline
     public Object newInstance(Object[] args) throws InstantiationException,
             IllegalArgumentException, InvocationTargetException {
         UNSAFE.ensureClassInitialized(instantiatedType); // May throw ExInInitError

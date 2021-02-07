@@ -30,6 +30,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Objects;
 
+import jdk.internal.vm.annotation.ForceInline;
 import jdk.internal.vm.annotation.Stable;
 
 class MHMethodAccessor extends MethodAccessorImpl {
@@ -48,6 +49,7 @@ class MHMethodAccessor extends MethodAccessorImpl {
     }
 
     @Override
+    @ForceInline
     public Object invoke(Object obj, Object[] args)
             throws IllegalArgumentException, InvocationTargetException {
         if (!Modifier.isStatic(modifiers)) {
